@@ -48,6 +48,11 @@ try:
                             MISPEventReport, MISPCorrelationExclusion, MISPDecayingModel, MISPGalaxy, MISPGalaxyCluster,
                             MISPGalaxyClusterElement, MISPGalaxyClusterRelation, MISPNote, MISPOpinion, MISPRelationship,
                             value_sha256)
+    from .sharing import (InstanceRelationship, ProjectionStatus, RecipientContext, ShareAuditEntry, # noqa
+                          ShareProjection, SharingDecision, SharingGroupMember, SharingGroupMembership,
+                          offline_share_projection, project_event, project_event_for_recipient,
+                          project_for_recipient, recipient_view, share_projection,
+                          sharing_projection)
     from .api import PyMISP, register_user  # noqa
     # NOTE: the direct imports to .tools are kept for backward compatibility but should be removed in the future
     from .tools import AbstractMISPObjectGenerator  # noqa
@@ -84,6 +89,10 @@ __all__ = ['PyMISP', 'register_user', 'AbstractMISP', 'MISPTag',
            'MISPOrganisationBlocklist', 'MISPEventReport', 'MISPCorrelationExclusion',
            'MISPDecayingModel', 'MISPGalaxy', 'MISPGalaxyCluster', 'MISPGalaxyClusterElement',
            'MISPGalaxyClusterRelation', 'MISPNote', 'MISPOpinion', 'MISPRelationship', 'value_sha256',
+           'InstanceRelationship', 'ProjectionStatus', 'RecipientContext', 'ShareAuditEntry',
+           'ShareProjection', 'SharingDecision', 'SharingGroupMember', 'SharingGroupMembership',
+           'offline_share_projection', 'project_event', 'project_event_for_recipient',
+           'project_for_recipient', 'recipient_view', 'share_projection', 'sharing_projection',
            'PyMISPError', 'NewEventError', 'NewAttributeError', 'MISPServerError',
            'NoURL', 'NoKey', 'InvalidMISPObject', 'UnknownMISPObjectTemplate', 'PyMISPInvalidFormat',
            'Distribution', 'ThreatLevel', 'Analysis', 'ExpandedPyMISP', 'MISPObjectException'

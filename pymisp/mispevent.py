@@ -1694,6 +1694,20 @@ class MISPEvent(AnalystDataBehaviorMixin):
                 to_return += attribute.hash_values(algorithm)
         return to_return
 
+    def project_for_recipient(self, recipient: Any, **kwargs: Any) -> Any:
+        """Create an offline, recipient-view sharing projection of this event.
+
+        The event is never mutated and no MISP server is contacted. See
+        :mod:`pymisp.sharing` for the recipient description and the returned
+        projection object.
+        """
+        from .sharing import project_event_for_recipient
+        return project_event_for_recipient(self, recipient, **kwargs)
+
+    def recipient_projection(self, recipient: Any, **kwargs: Any) -> Any:
+        """Alias for :meth:`project_for_recipient`."""
+        return self.project_for_recipient(recipient, **kwargs)
+
     def to_feed(self, valid_distributions: list[int] = [0, 1, 2, 3, 4, 5], with_meta: bool = False, with_distribution: bool=False, with_local_tags: bool = True, with_event_reports: bool = True, with_cryptographic_keys: bool = True) -> dict[str, Any]:
         """ Generate a json output for MISP Feed.
 
