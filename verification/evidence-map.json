@@ -1,0 +1,268 @@
+{
+  "uid": 12840,
+  "score": 3,
+  "feedback": "ObjectReference里内嵌的Object没有同步裁剪。目标对象本身能分享、其中某个属性只能组织内查看时，顶层对象已删掉该属性，但引用附带的Object副本仍包含属性原文和UUID，合作方照样能收到。_filter_object_references只检查了引用两端的UUID，随后原样保留整个引用。新增test_sharing_projection.py测了指向完全隐藏对象的引用，漏了可见对象内部有受限属性的情况。这个嵌套副本也要按同一规则处理。",
+  "native_sha256": "90f1205eb7b8914e530ffd133642696468f8fcc3b29b7ebd59b2ac656eb9facb",
+  "regression": {
+    "time": "2026-11-27T07:20:58+08:00",
+    "argv": [
+      "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\runtime-tasks\\misp-distribution\\env\\Scripts\\python.exe",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_sharing_projection.py",
+      "tests/test_mispevent.py::TestMISPEvent::test_simple",
+      "tests/test_mispevent.py::TestMISPEvent::test_event",
+      "-o",
+      "addopts=",
+      "-o",
+      "cache_dir=D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\regression-r1\\tmp\\cache",
+      "--basetemp",
+      "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\regression-r1\\tmp\\pytest",
+      "--disable-socket"
+    ],
+    "cwd": "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\replay-source",
+    "exit_code": 0,
+    "seconds": 8.348695755004883,
+    "source_manifest_sha256": "b6e8f762d867d010fab89f9683945c56e608cb208fc014c118fa962b4874ba51",
+    "network_disabled": true
+  },
+  "independent": [
+    {
+      "time": "2026-11-27T07:22:11+08:00",
+      "argv": [
+        "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\runtime-tasks\\misp-distribution\\env\\Scripts\\python.exe",
+        "-B",
+        "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\contract_checks.py"
+      ],
+      "cwd": "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1",
+      "exit_code": 1,
+      "seconds": 2.966376781463623,
+      "source_manifest_sha256": "b6e8f762d867d010fab89f9683945c56e608cb208fc014c118fa962b4874ba51",
+      "offline": true
+    },
+    {
+      "time": "2026-11-27T07:32:38+08:00",
+      "argv": [
+        "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\runtime-tasks\\misp-distribution\\env\\Scripts\\python.exe",
+        "-B",
+        "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\contract_checks_r2.py"
+      ],
+      "cwd": "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1",
+      "exit_code": 1,
+      "reason": "Confirm expanded-reference leakage survives native MISP JSON load before projection."
+    }
+  ],
+  "scope": "Focused local regression: 23 passed. Independent four checks: three passed, one failed, then the same defect was confirmed after native MISP JSON load. No live MISP contacted. Missing optional template submodule failures were not scored.",
+  "facts": [
+    {
+      "file": "pymisp/sharing.py",
+      "line": 1401,
+      "function": "_filter_object_references",
+      "observation": "Retains an entire reference when the target UUID is exported, including unfiltered embedded Object data."
+    },
+    {
+      "file": "tests/test_sharing_projection.py",
+      "line": 507,
+      "function": "test_derived_content_does_not_expose_excluded_items",
+      "observation": "Checks references to excluded whole objects; no expanded reference to a visible object containing a restricted child."
+    }
+  ],
+  "observable_actions": [
+    {
+      "native_line": 329,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 356,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 367,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 377,
+      "command": "python -m pytest tests -q --ignore=tests/testlive_comprehensive.py --ignore=tests/testlive_sync.py 2>&1"
+    },
+    {
+      "native_line": 439,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 479,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1; @'\nimport pymisp\nprint(pymisp.offline_share_projection, pymisp.project_event, pymisp.recipient_view)\nfrom pymisp import MISPEvent, RecipientContext\ne=MISPEvent(); e.info='x'; e.distribution=1\np=e.project_for_recipient(RecipientContext(org_uuid='A', relationship='same_instance'))\nprint(p.status, p.audit_dicts, p['status'] if False else '')\nentry = p.audit[0] if p.audit else None\nprint(entry['reason'] if entry else 'no audit')\n'@ | python -"
+    },
+    {
+      "native_line": 508,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 552,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 569,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 608,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 619,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 630,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 646,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 657,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 674,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1; python -m compileall -q pymisp\\sharing.py; if ($LASTEXITCODE -eq 0) { 'compile ok' }"
+    },
+    {
+      "native_line": 702,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1; python -m compileall -q pymisp\\sharing.py; if ($LASTEXITCODE -eq 0) { 'compile ok' }"
+    },
+    {
+      "native_line": 713,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 746,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 763,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 781,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1; @'\nimport json\nfrom pymisp import MISPEvent, RecipientContext\ne=MISPEvent(); e.info='x'; e.distribution=1\ne.add_attribute('filename','secret.exe', distribution=0)\np=e.project_for_recipient(RecipientContext(organisations=['B'], instance_relationship='same_instance'))\nprint(json.dumps(p.audit))\nprint(p.audit[0]['reason'], p.audit[0].reason, p.audit_dicts)\n'@ | python -"
+    },
+    {
+      "native_line": 792,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 803,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 814,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1; @'\nfrom pymisp import MISPEvent, RecipientContext\nfor d in [\n {'org_uuid':'1','relationship':'same_instance'},\n {'organizations':['A'],'instance':'same_instance'},\n {'organisation':['A'],'relationship':'same_instance','sharing_group_members':{1:['A']}},\n]:\n r=RecipientContext.from_dict(d); print(r.organisations, r.instance_relationship, r.organisations_complete)\ne=MISPEvent(); e.info='x'; e.distribution=1\np=e.project_for_recipient({'org_uuid':'1','relationship':'same_instance'})\nprint(p.status)\n'@ | python -"
+    },
+    {
+      "native_line": 825,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 836,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 847,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 893,
+      "command": "python -m compileall -q pymisp\\sharing.py; if ($LASTEXITCODE -eq 0) { 'compile ok' }; python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 904,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 921,
+      "command": "@'\nfrom pymisp import MISPEvent\nfrom pymisp.sharing import RecipientContext\ne=MISPEvent(); e.info='x'; e.distribution=4; e.sharing_group_id=1\ne.add_attribute('filename','x.exe', distribution=5)\nr=RecipientContext(organisations=['A'], instance_relationship='same_instance', sharing_groups={1:{'members':{'A':True,'B':False}}})\np=e.project_for_recipient(r)\nprint(p.status, [a.to_dict() for a in p.audit])\n'@ | python -; python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 932,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 971,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1; @'\nfrom pymisp import MISPEvent, RecipientContext\nfrom pymisp.sharing import project_event_for_recipient\ne=MISPEvent(); e.info='x'; e.distribution=1\nd=e.to_dict(); d={'Event': d}\np=project_event_for_recipient(d, RecipientContext(organisations=['A'], instance_relationship='same_instance'))\nprint(p.status, p.to_json())\n'@ | python -"
+    },
+    {
+      "native_line": 982,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1015,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1027,
+      "command": "python -m pytest tests/test_sharing_projection.py \"tests/test_mispevent.py::TestMISPEvent::test_simple\" \"tests/test_mispevent.py::TestMISPEvent::test_event\" \"tests/test_mispevent.py::TestMISPEvent::test_loadfile\" \"tests/test_mispevent.py::TestMISPEvent::test_attribute\" -q 2>&1"
+    },
+    {
+      "native_line": 1044,
+      "command": "@'\nfrom pymisp import MISPEvent\nfrom pymisp.sharing import RecipientContext\ne=MISPEvent(); e.info='x'; e.distribution=4; e.sharing_group_id=1\ne.add_attribute('filename','x.exe', distribution=5)\nr=RecipientContext(organisations=['A'], instance_relationship='same_instance', sharing_groups={1:{'members':{'A':{'uuid':'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa','extend':False},'B':True}}})\np=e.project_for_recipient(r)\nprint(p.status, [a.to_dict() for a in p.audit])\nr2=RecipientContext(organisations=['aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'], instance_relationship='same_instance', sharing_groups={1:{'members':{'A':{'uuid':'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa','extend':False}}}})\nprint(e.project_for_recipient(r2).status)\n'@ | python -; python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1060,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1071,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1093,
+      "command": "python -m compileall -q pymisp\\sharing.py; if ($LASTEXITCODE -eq 0) { 'compile ok' }; python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1110,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1159,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1; @'\nfrom pymisp import MISPEvent, MISPSharingGroup\nfrom pymisp.sharing import RecipientContext\nSG='11111111-1111-4111-8111-111111111111'\ne=MISPEvent(); e.info='x'; e.distribution=4; e.sharing_group_id=1\nsg=MISPSharingGroup(); sg.from_dict(id=1, uuid=SG, name='Mixed Case Name'); e.SharingGroup=sg\ne.add_attribute('filename','x.exe', distribution=5)\np=e.project_for_recipient(RecipientContext(organisations=['A'], instance_relationship='same_instance', sharing_groups={SG:{'members':['A']}}))\nprint(p.to_json())\n'@ | python -"
+    },
+    {
+      "native_line": 1187,
+      "command": "@'\nfrom pymisp import MISPEvent, MISPOrganisation\nfrom pymisp.sharing import RecipientContext\nfor uuid,name,rec in [('123478','TestOrg','123478'), ('org-a','A','org-a'), ('org-a','A','A')]:\n e=MISPEvent(); e.info='x'; e.distribution=0\n o=MISPOrganisation(); o.from_dict(id=1, uuid=uuid, name=name); e.Orgc=o\n e.add_attribute('filename','x.exe', distribution=5)\n p=e.project_for_recipient(RecipientContext(organisations=[rec], instance_relationship='same_instance'))\n print(uuid, name, rec, p.status, [a.to_dict() for a in p.audit])\n'@ | python -; python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1203,
+      "command": "@'\nfrom pymisp import MISPEvent, MISPOrganisation\nfrom pymisp.sharing import RecipientContext, _org_identity\no=MISPOrganisation(); o.from_dict(id=1, uuid='123478', name='TestOrg')\na=_org_identity(o); b=_org_identity('123478')\nprint(a, a.aliases); print(b, b.aliases); print(a.intersects(b))\nfor uuid,name,rec in [('123478','TestOrg','123478'), ('org-a','A','org-a'), ('org-a','A','A')]:\n e=MISPEvent(); e.info='x'; e.distribution=0\n o=MISPOrganisation(); o.from_dict(id=1, uuid=uuid, name=name); e.Orgc=o\n e.add_attribute('filename','x.exe', distribution=5)\n p=e.project_for_recipient(RecipientContext(organisations=[rec], instance_relationship='same_instance'))\n print(uuid, name, rec, p.status, [x.to_dict() for x in p.audit])\n'@ | python -; python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1224,
+      "command": "python -m compileall -q pymisp\\sharing.py; if ($LASTEXITCODE -eq 0) { 'compile ok' }; python -m pytest tests/test_sharing_projection.py \"tests/test_mispevent.py::TestMISPEvent::test_simple\" \"tests/test_mispevent.py::TestMISPEvent::test_event\" \"tests/test_mispevent.py::TestMISPEvent::test_loadfile\" \"tests/test_mispevent.py::TestMISPEvent::test_attribute\" -q 2>&1"
+    },
+    {
+      "native_line": 1252,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1; python -m compileall -q pymisp\\sharing.py pymisp\\mispevent.py pymisp\\__init__.py; if ($LASTEXITCODE -eq 0) { 'compile ok' }"
+    },
+    {
+      "native_line": 1273,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1284,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    },
+    {
+      "native_line": 1301,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1; python -m compileall -q pymisp\\sharing.py; if ($LASTEXITCODE -eq 0) { 'compile ok' }"
+    },
+    {
+      "native_line": 1327,
+      "command": "python -m pytest tests/test_sharing_projection.py -q 2>&1"
+    }
+  ],
+  "reviewer": "Codex AI-assisted",
+  "frozen_commit": "1e6fbb5f1667d85b838ce5073b40cc9a5d89083d"
+}

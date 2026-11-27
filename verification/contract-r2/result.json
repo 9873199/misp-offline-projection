@@ -1,0 +1,11 @@
+{
+  "time": "2026-11-27T07:32:38+08:00",
+  "argv": [
+    "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\runtime-tasks\\misp-distribution\\env\\Scripts\\python.exe",
+    "-B",
+    "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\contract_checks_r2.py"
+  ],
+  "cwd": "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1",
+  "exit_code": 1,
+  "reason": "Confirm expanded-reference leakage survives native MISP JSON load before projection."
+}

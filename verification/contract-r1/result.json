@@ -1,0 +1,13 @@
+{
+  "time": "2026-11-27T07:22:11+08:00",
+  "argv": [
+    "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\runtime-tasks\\misp-distribution\\env\\Scripts\\python.exe",
+    "-B",
+    "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\contract_checks.py"
+  ],
+  "cwd": "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1",
+  "exit_code": 1,
+  "seconds": 2.966376781463623,
+  "source_manifest_sha256": "b6e8f762d867d010fab89f9683945c56e608cb208fc014c118fa962b4874ba51",
+  "offline": true
+}

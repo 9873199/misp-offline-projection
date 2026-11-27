@@ -1,0 +1,25 @@
+{
+  "time": "2026-11-27T07:20:58+08:00",
+  "argv": [
+    "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\runtime-tasks\\misp-distribution\\env\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_sharing_projection.py",
+    "tests/test_mispevent.py::TestMISPEvent::test_simple",
+    "tests/test_mispevent.py::TestMISPEvent::test_event",
+    "-o",
+    "addopts=",
+    "-o",
+    "cache_dir=D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\regression-r1\\tmp\\cache",
+    "--basetemp",
+    "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\regression-r1\\tmp\\pytest",
+    "--disable-socket"
+  ],
+  "cwd": "D:\\hc\\userFeedback\\cache\\execution-security30-20261125-r1\\evaluation\\uid12840-today-r1\\replay-source",
+  "exit_code": 0,
+  "seconds": 8.348695755004883,
+  "source_manifest_sha256": "b6e8f762d867d010fab89f9683945c56e608cb208fc014c118fa962b4874ba51",
+  "network_disabled": true
+}

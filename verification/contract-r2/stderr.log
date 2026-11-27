@@ -1,0 +1,18 @@
+test_absent_sharing_group_membership_fails_closed (__main__.Contract.test_absent_sharing_group_membership_fails_closed) ... ok
+test_expanded_object_reference_cannot_restore_hidden_child (__main__.Contract.test_expanded_object_reference_cannot_restore_hidden_child) ... FAIL
+test_input_event_remains_unchanged (__main__.Contract.test_input_event_remains_unchanged) ... ok
+test_restricted_child_is_removed (__main__.Contract.test_restricted_child_is_removed) ... ok
+
+======================================================================
+FAIL: test_expanded_object_reference_cannot_restore_hidden_child (__main__.Contract.test_expanded_object_reference_cannot_restore_hidden_child)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\hc\userFeedback\cache\execution-security30-20261125-r1\evaluation\uid12840-today-r1\contract_checks_r2.py", line 17, in test_expanded_object_reference_cannot_restore_hidden_child
+    self.assertNotIn('private-fixture-marker.txt',text);self.assertNotIn(hidden.uuid,text)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'private-fixture-marker.txt' unexpectedly found in '{"Event": {"uuid": "4708b5b3-27ee-42e9-8f5f-10a0e03c90b7", "Object": [{"name": "file", "uuid": "e7bc4ee0-ec53-469c-92e6-cfa2b4537a3d", "Attribute": [{"uuid": "615c29b5-2d85-4687-8226-63da70d9a95c", "object_relation": "filename", "value": "visible.txt", "type": "filename", "disable_correlation": false, "to_ids": true, "category": "Payload delivery", "distribution": "5"}], "distribution": "5", "sharing_group_id": "0"}, {"name": "file", "uuid": "9389bcac-6428-40f1-9e13-f507f892607b", "ObjectReference": [{"uuid": "88d20c19-e7db-45fd-b689-f9b89262c5ca", "object_uuid": "9389bcac-6428-40f1-9e13-f507f892607b", "referenced_uuid": "e7bc4ee0-ec53-469c-92e6-cfa2b4537a3d", "relationship_type": "related-to", "Object": {"name": "file", "uuid": "e7bc4ee0-ec53-469c-92e6-cfa2b4537a3d", "Attribute": [{"uuid": "615c29b5-2d85-4687-8226-63da70d9a95c", "object_relation": "filename", "value": "visible.txt", "type": "filename", "disable_correlation": false, "to_ids": true, "category": "Payload delivery", "distribution": "5"}, {"uuid": "7bd832ca-9fc1-4b84-99af-942b1d9b19b2", "object_relation": "filename", "value": "private-fixture-marker.txt", "type": "filename", "disable_correlation": false, "to_ids": true, "category": "Payload delivery", "distribution": "0"}], "distribution": "5", "sharing_group_id": "0"}}], "Attribute": [{"uuid": "b89b5666-8293-47a0-8522-75410b04a947", "object_relation": "filename", "value": "source.txt", "type": "filename", "disable_correlation": false, "to_ids": true, "category": "Payload delivery", "distribution": "5"}], "distribution": "5", "sharing_group_id": "0"}], "info": "Offline sharing projection test", "distribution": "3", "published": false, "Orgc": {"name": "Organisation A", "uuid": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"}}}'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.011s
+
+FAILED (failures=1)

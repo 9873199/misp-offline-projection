@@ -1,0 +1,1 @@
+ObjectReference里内嵌的Object没有同步裁剪。目标对象本身能分享、其中某个属性只能组织内查看时，顶层对象已删掉该属性，但引用附带的Object副本仍包含属性原文和UUID，合作方照样能收到。_filter_object_references只检查了引用两端的UUID，随后原样保留整个引用。新增test_sharing_projection.py测了指向完全隐藏对象的引用，漏了可见对象内部有受限属性的情况。这个嵌套副本也要按同一规则处理。
